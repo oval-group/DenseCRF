@@ -1,4 +1,5 @@
 include_directories( ../external/ )
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Libraries
 add_library(densecrf_utils densecrf_utils.cpp)
