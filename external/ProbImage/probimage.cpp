@@ -46,7 +46,7 @@ void ProbImage::load(const char* file) {
 }
 void ProbImage::save(const char* file) {
 	FILE* fp = fopen( file, "wb" );
-	uint32_t buf[] = {width_, height_, depth_};
+  uint32_t buf[] = {(uint32_t) width_, (uint32_t) height_, (uint32_t) depth_};
 	writeBuf32( fp, 3, buf );
 	writeBuf32( fp, width_*height_*depth_, (uint32_t*)data_ );
 	fclose( fp );
@@ -127,7 +127,7 @@ void ProbImage::compress(const char* file, float eps) {
 	
 	
 	FILE* fp = fopen( file, "wb" );
-	uint32_t buf[] = {width_, height_, depth_, M};
+  uint32_t buf[] = {(uint32_t) width_, (uint32_t) height_, (uint32_t) depth_, (uint32_t) M};
 	writeBuf32( fp, 4, buf );
 	writeBuf32( fp, 1, (uint32_t*)&eps );
 	writeBuf32( fp, M*depth_, (uint32_t*)ukeys );
