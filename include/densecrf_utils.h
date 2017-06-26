@@ -1,5 +1,6 @@
 #pragma once
 #include <Eigen/Core>
+#include <vector>
 
 using namespace Eigen;
 
