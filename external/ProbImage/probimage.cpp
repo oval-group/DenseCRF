@@ -16,7 +16,8 @@ ProbImage& ProbImage::operator=(const ProbImage& o) {
 	width_ = o.width_; height_ = o.height_; depth_ = o.depth_;
 	if( data_ ) delete[] data_;
 	data_ = new float[ width_*height_*depth_ ];
-	memcpy( data_, o.data_, width_*height_*depth_*sizeof(float) );
+  memcpy( data_, o.data_, width_*height_*depth_*sizeof(float) );
+  return *this;
 }
 ProbImage::~ProbImage(){
 	if( data_ ) delete[] data_;
