@@ -139,27 +139,30 @@ void ProbImage::compress(const char* file, float eps) {
 	delete[] ids;
 }
 void ProbImage::decompress(const char* file) {
-	FILE* fp = fopen( file, "rb" );
+  FILE* fp = fopen( file, "rb" );
+  if(fp == NULL){
+    perror("Error opening file: ");
+  }
 	uint32_t buf[5];
 	readBuf32( fp, 5, buf );
 	width_ = buf[0]; height_ = buf[1]; depth_ = buf[2];
 	int M = buf[3];
 	float eps = *(float*)(buf+4);
-	
+
 	uint32_t * ids = new uint32_t[width_*height_];
 	int32_t * ukeys = new int32_t[M*depth_];
 	readBuf32( fp, M*depth_, (uint32_t*)ukeys );
 	readBuf32( fp, width_*height_, ids );
-	
+
 	if( data_ ) delete[] data_;
 	data_ = new float[ width_*height_*depth_ ];
-	
+
 	for( int i=0; i<width_*height_; i++ ){
 		int32_t * k = ukeys + ids[i]*depth_;
 		for( int j=0; j<depth_; j++ )
 			data_[ i*depth_ + j ] = k[j]*eps;
 	}
-	
+
 	fclose( fp );
 	delete [] ids;
 	delete [] ukeys;
